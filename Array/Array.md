@@ -1,17 +1,55 @@
-## Concept
-Collection of items of a single type
+## Problem
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
-- Ex: Int array: [0,1,3,5]
-- Ex: String array: ["Potato", "Tomato", "Passion Fruit"]
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
-## Basics informations
-- The array elements are refired by index
-- The first index is 0[zero]
-- The size of array is aways fixed
-- Arrays have their bytes stored consecutively at the RAM memory
-- **Obs:** <font style="color: red;"> **There is specific kind of array that have rezisable size** </font>
+You can return the answer in any order.
 
-## Arraylist
-This data structure behavies like a array and like a list at the same time. 
-- Their array behaviour is store consecutively items at the RAM memory but with one different thing, when your size is full filled their size incrased two times.
+ 
 
+Example 1:
+
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Example 2:
+
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+Example 3:
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
+
+> :memo: **Note:** I need to finish it, there is one case that i have to cover.
+
+## Solution
+
+```
+class Solution {
+    fun twoSum(nums: IntArray, target: Int): IntArray {
+       var resultArray = intArrayOf(0,0)
+        // remove elements bigger than target
+       val numsModified = nums.filter { it < target }.toTypedArray()
+        // ordering array 
+       numsModified.sort()
+       // taking the first element as reference 
+       resultArray[0] = numsModified[0]
+       // find elements that their sum is equals to target 
+       for (i in numsModified.indices){
+         if(i == 0)
+             continue
+         if(resultArray[0] + numsModified[i] == target){
+             resultArray[1] = numsModified[i]
+             break
+         }
+       }
+        // find indices that elements
+       resultArray[0] = nums.indexOf(resultArray[0])
+       resultArray[1] = nums.indexOf(resultArray[1])
+
+       return resultArray
+    }
+       
+}
+```
